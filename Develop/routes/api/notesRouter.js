@@ -6,17 +6,17 @@ const {
   writeToFile,
 } = require("../../helpers/fsUtil");
 
-api.get("/", (req, res) => {
+router.get("/", (req, res) => {
   readFromFile("./db/noteDb.json").then((data) => res.json(JSON.parse(data)));
 });
 
-api.post("/", (req, res) => {
+router.post("/", (req, res) => {
   console.log(req.body);
   readAndAppend(req.body, "./db/noteDB.json");
   res.json(`Note Added`);
 });
 
-api.delete("/:note_id", (req, res) => {
+router.delete("/:note_id", (req, res) => {
   const noteId = req.params.note_id;
   readFromFile("./db/noteDb.json")
     .then((data) => JSON.parse(data))
