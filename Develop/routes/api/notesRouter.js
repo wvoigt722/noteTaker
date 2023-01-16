@@ -1,10 +1,10 @@
-const api = require("express").Router();
+const router = require("express").Router();
 const { v4: uuidv4 } = require("uuid");
 const {
   readFromFile,
   readAndAppend,
   writeToFile,
-} = require("../helpers/fsUtil");
+} = require("../../helpers/fsUtil");
 
 api.get("/", (req, res) => {
   readFromFile("./db/noteDb.json").then((data) => res.json(JSON.parse(data)));
@@ -13,7 +13,7 @@ api.get("/", (req, res) => {
 api.post("/", (req, res) => {
   console.log(req.body);
   readAndAppend(req.body, "./db/noteDB.json");
-  res.json(`Diagnostic information added 🔧`);
+  res.json(`Note Added`);
 });
 
 api.delete("/:note_id", (req, res) => {
@@ -32,4 +32,4 @@ api.delete("/:note_id", (req, res) => {
     });
 });
 
-module.exports = api;
+module.exports = router;
